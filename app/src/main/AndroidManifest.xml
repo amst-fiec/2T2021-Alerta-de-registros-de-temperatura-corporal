@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.senensig">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_senensig"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_senensig_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Senensig">
+        <activity
+            android:name=".DatoVisitante"
+            android:exported="false" />
+        <activity
+            android:name=".MiHistorial"
+            android:exported="false" />
+        <activity
+            android:name=".HistorialVisitantes"
+            android:exported="false" />
+        <activity
+            android:name=".UserDistinctionActivityLgn"
+            android:exported="false" />
+        <activity
+            android:name=".LogingGoogleActivityVisitor"
+            android:exported="false" />
+        <activity
+            android:name=".LogingGoogleActivityAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".UserDistinctionActivitySgnp"
+            android:exported="false" />
+        <activity
+            android:name=".VisitanteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrarseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".IniciarSesionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

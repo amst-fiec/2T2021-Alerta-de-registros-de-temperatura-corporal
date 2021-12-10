@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Senensig</string>
+    <string name="signupButton">Registrarse</string>
+    <string name="loginButton">Iniciar sesión</string>
+    <string name="user">Usuario</string>
+    <string name="user_hint">David Persson</string>
+    <string name="password">Contraseña</string>
+    <string name="password_hint">lab45ht</string>
+    <string name="mail">Correo</string>
+    <string name="mail_hint">davidPrs@gmail.com</string>
+    <string name="ID">ID</string>
+    <string name="ID_hint">0006591248</string>
+    <string name="signUp">Registro</string>
+
+    <string name="logIn">Inicio de sesión</string>
+
+    <string name="faction">Elija perfil</string>
+
+    <string name="signInAdminUsingGoogle">Admin, inicie sesión con tu cuenta de Google</string>
+    <string name="signInVisitorUsingGoogle">Visitante, inicie sesión con tu cuenta de Google</string>
+
+
+    <string name="adminWelcome">Bienvenido Administrador</string>
+    <string name="chartVisitors">Estadística visitantes:</string>
+    <string name="listVisitors">Acceder visitantes</string>
+
+    <string name="visitorWelcome">Bienvenido Visitante</string>
+    <string name="lastVisit">Datos de mi última visita:</string>
+    <string name="listMyVisits">Acceder a mi historial</string>
+
+    <string name="temperature">Temperatura: </string>
+    <string name="temperature_hint">38 ºc</string>
+    <string name="hora">Hora: </string>
+    <string name="hora_hint">15:45:25</string>
+    <string name="lugar">Lugar: </string>
+    <string name="lugar_hint">Mall del West</string>
+    <string name="estado">Estado: </string>
+    <string name="estado_hint">Enfermo</string>
+    <string name="fiberAlert">Peligro de fiebre</string>
+
+</resources>

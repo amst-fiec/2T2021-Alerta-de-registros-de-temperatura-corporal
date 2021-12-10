@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Senensig/app/src/main/res/layout/activity_admin.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Senensig/app/src/main/res/layout/activity_iniciar_sesion.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Senensig/app/src/main/res/layout/activity_loging_google_admin.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Senensig/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Senensig/app/src/main/res/layout/activity_mi_historial.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Senensig/app/src/main/res/layout/activity_registrarse.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Senensig/app/src/main/res/layout/activity_user_distinction_lgn.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Senensig/app/src/main/res/layout/activity_user_distinction_sgnp.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity__main.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/activity_admin.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_dato_visitante.xml" value="0.34791666666666665" />
+        <entry key="app/src/main/res/layout/activity_historial_visitantes.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/activity_iniciar_sesion.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_loging_google.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_loging_google_admin.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_loging_google_visitor.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_mi_historial.xml" value="0.34791666666666665" />
+        <entry key="app/src/main/res/layout/activity_registrarse.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_user_distinction.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_user_distinction_lgn.xml" value="0.12314814814814815" />
+        <entry key="app/src/main/res/layout/activity_visitante.xml" value="0.33" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

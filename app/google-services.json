@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "593561850320",
+    "firebase_url": "https://senensigapp-default-rtdb.firebaseio.com",
+    "project_id": "senensigapp",
+    "storage_bucket": "senensigapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593561850320:android:9454ac0c4c9c11ae2ce9d5",
+        "android_client_info": {
+          "package_name": "com.example.senensig"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593561850320-sstmob062dk8b292i9b1qgqu2tcdbm7h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkAmawkzTjwEnNERzrUwycaIsnwnJsZlQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593561850320-sstmob062dk8b292i9b1qgqu2tcdbm7h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
