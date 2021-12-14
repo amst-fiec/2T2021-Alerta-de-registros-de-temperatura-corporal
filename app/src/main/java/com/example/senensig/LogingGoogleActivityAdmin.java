@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class LogingGoogleActivityAdmin extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
@@ -22,11 +23,14 @@ public class LogingGoogleActivityAdmin extends AppCompatActivity implements Goog
     private static final int RC_SIGN_IN = 1;
     private SignInClient oneTapClient;
     private BeginSignInRequest signInRequest;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loging_google_admin);
+
+        mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_senensig"
+        android:icon="@mipmap/ic_tumperalert"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_senensig_round"
+        android:roundIcon="@mipmap/ic_tumperalert_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Senensig">
         <activity

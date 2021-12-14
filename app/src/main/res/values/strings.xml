@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Senensig</string>
+    <string name="app_name">Tumper-alert</string>
     <string name="signupButton">Registrarse</string>
     <string name="loginButton">Iniciar sesión</string>
     <string name="user">Usuario</string>
@@ -26,7 +26,7 @@
 
     <string name="visitorWelcome">Bienvenido Visitante</string>
     <string name="lastVisit">Datos de mi última visita:</string>
-    <string name="listMyVisits">Acceder a mi historial</string>
+    <string name="listMyVisits">Mi historial</string>
 
     <string name="temperature">Temperatura: </string>
     <string name="temperature_hint">38 ºc</string>
@@ -37,5 +37,8 @@
     <string name="estado">Estado: </string>
     <string name="estado_hint">Enfermo</string>
     <string name="fiberAlert">Peligro de fiebre</string>
+
+    <string name="signOut">Cerrar sesión</string>
+
 
 </resources>

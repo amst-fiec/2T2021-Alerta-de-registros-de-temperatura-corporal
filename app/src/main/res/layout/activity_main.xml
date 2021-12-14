@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AB47BC"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFE0CB"
     tools:context=".MainActivity">
 
     <ImageView
@@ -15,18 +16,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/amst_g1_senensig" />
+        app:srcCompat="@drawable/amst_g1_logo_v2" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="299dp"
+        android:layout_height="110dp"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/bangers"
         android:text="@string/app_name"
         android:textColor="#000000"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.589"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
