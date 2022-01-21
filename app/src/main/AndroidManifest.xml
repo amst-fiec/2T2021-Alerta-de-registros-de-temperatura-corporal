@@ -3,6 +3,12 @@
     package="com.example.senensig">
 
     <uses-permission android:name="android.permission.INTERNET" />
+<<<<<<< HEAD
+=======
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+>>>>>>> bccb52b (Modificacion)
 
     <application
         android:allowBackup="true"
@@ -12,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Senensig">
         <activity
+<<<<<<< HEAD
             android:name=".DatoVisitante"
             android:exported="false" />
         <activity
@@ -19,25 +26,62 @@
             android:exported="false" />
         <activity
             android:name=".HistorialVisitantes"
+=======
+            android:name=".admin.DatoVisitanteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".visitante.MiHistorialActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.HistorialVisitantesActivity"
+>>>>>>> bccb52b (Modificacion)
             android:exported="false" />
         <activity
             android:name=".UserDistinctionActivityLgn"
             android:exported="false" />
         <activity
+<<<<<<< HEAD
             android:name=".LogingGoogleActivityVisitor"
             android:exported="false" />
         <activity
             android:name=".LogingGoogleActivityAdmin"
+=======
+            android:name=".visitante.LogingGoogleActivityVisitor"
+            android:exported="false" />
+        <activity
+            android:name=".admin.LogingGoogleActivityAdmin"
+>>>>>>> bccb52b (Modificacion)
             android:exported="false" />
         <activity
             android:name=".UserDistinctionActivitySgnp"
             android:exported="false" />
         <activity
+<<<<<<< HEAD
             android:name=".VisitanteActivity"
             android:exported="false" />
         <activity
             android:name=".AdminActivity"
             android:exported="false" />
+=======
+            android:name=".visitante.VisitanteActivity"
+            android:exported="true" >
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".admin.AdminActivity"
+            android:exported="true" >
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> -->
+        </activity>
+>>>>>>> bccb52b (Modificacion)
         <activity
             android:name=".RegistrarseActivity"
             android:exported="false" />
@@ -49,7 +93,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+<<<<<<< HEAD
 
+=======
+>>>>>>> bccb52b (Modificacion)
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -3,11 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/tumperAlert/app/src/main/res/layout/activity_user_distinction_sgnp.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity__main.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/activity_admin.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_dato_visitante.xml" value="0.34791666666666665" />
         <entry key="app/src/main/res/layout/activity_historial_visitantes.xml" value="0.3609375" />
+=======
+        <entry key="..\:/Users/nic0_/AndroidStudioProjects/tumperAlert/app/src/main/res/layout/activity_admin.xml" value="0.33" />
+        <entry key="..\:/Users/nic0_/AndroidStudioProjects/tumperAlert/app/src/main/res/layout/activity_dato_visitante.xml" value="0.33" />
+        <entry key="..\:/Users/nic0_/AndroidStudioProjects/tumperAlert/app/src/main/res/layout/activity_historial_visitantes.xml" value="0.18819655521783182" />
+        <entry key="..\:/Users/nic0_/AndroidStudioProjects/tumperAlert/app/src/main/res/layout/activity_historial_visitantes_1.xml" value="0.33" />
+        <entry key="..\:/Users/nic0_/AndroidStudioProjects/tumperAlert/app/src/main/res/layout/activity_loging_google_visitor.xml" value="0.16145833333333334" />
+        <entry key="..\:/Users/nic0_/AndroidStudioProjects/tumperAlert/app/src/main/res/layout/activity_visitante.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity__main.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/activity_admin.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_dato_visitante.xml" value="0.34791666666666665" />
+        <entry key="app/src/main/res/layout/activity_historial_visitantes.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_historial_visitantes_1.xml" value="0.25052083333333336" />
+>>>>>>> bccb52b (Modificacion)
         <entry key="app/src/main/res/layout/activity_iniciar_sesion.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_loging_google.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_loging_google_admin.xml" value="0.33" />
@@ -19,6 +33,13 @@
         <entry key="app/src/main/res/layout/activity_user_distinction_lgn.xml" value="0.12314814814814815" />
         <entry key="app/src/main/res/layout/activity_user_distinction_sgnp.xml" value="0.3609375" />
         <entry key="app/src/main/res/layout/activity_visitante.xml" value="0.33" />
+<<<<<<< HEAD
+=======
+        <entry key="app/src/main/res/layout/card_captioned_image_adapter_visitante.xml" value="0.25052083333333336" />
+        <entry key="app/src/main/res/layout/card_captioned_image_adapter_visitantes.xml" value="0.3572916666666667" />
+        <entry key="app/src/main/res/layout/card_captioned_image_adapter_visitas.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/recycler_view_item.xml" value="0.25052083333333336" />
+>>>>>>> bccb52b (Modificacion)
       </map>
     </option>
   </component>

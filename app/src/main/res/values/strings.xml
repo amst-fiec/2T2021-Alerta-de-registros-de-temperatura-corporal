@@ -28,10 +28,20 @@
     <string name="lastVisit">Datos de mi última visita:</string>
     <string name="listMyVisits">Mi historial</string>
 
+<<<<<<< HEAD
     <string name="temperature">Temperatura: </string>
     <string name="temperature_hint">38 ºc</string>
     <string name="hora">Hora: </string>
     <string name="hora_hint">15:45:25</string>
+=======
+    <!-- Fragment visitante -->
+    <string name="temperature">Temperatura: </string>
+    <string name="temperature_hint">38 ºc</string>
+    <string name="hora">Hora: </string>
+    <string name="fecha">Fecha: </string>
+    <string name="hora_hint">15:45:25</string>
+    <string name="fecha_hint">12 enero, 2021</string>
+>>>>>>> bccb52b (Modificacion)
     <string name="lugar">Lugar: </string>
     <string name="lugar_hint">Mall del West</string>
     <string name="estado">Estado: </string>
@@ -40,5 +50,31 @@
 
     <string name="signOut">Cerrar sesión</string>
 
+<<<<<<< HEAD
+=======
+    <string name="Identificacion">ID: </string>
+
+
+    <!-- activity_visitante -->
+    <string name="CreateFalseVisit"> Visitar </string>
+
+
+    <!-- captioned image adapter -->
+    <string name="anterior"> Anterior </string>
+    <string name="siguiente"> Siguiente </string>
+    <string name="misVisitas"> Visitas: </string>
+    <string name="userName">Matrid Persson</string>
+    <string name="mallName">Mall del Oreo</string>
+
+    <!-- activity admin -->
+    <string name="noVisitors">No hay visitantes</string>
+    <string name="personas">Personas</string>
+    <string name="porcentaje">Porcentaje</string>
+    <string name="fiebre">Fiebre</string>
+    <string name="noFiebre">Sin fiebre</string>
+    <string name="porcentajeNoFiebre">80</string>
+    <string name="porcentajeFiebre">20</string>
+    <!-- captioned image adapter admin -->
+>>>>>>> bccb52b (Modificacion)
 
 </resources>

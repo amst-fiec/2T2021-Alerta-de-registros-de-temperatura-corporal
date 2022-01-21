@@ -15,6 +15,17 @@
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
+=======
+          "client_id": "593561850320-6mmncvvs65gcic4v8kr4mde970q39h9e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.senensig",
+            "certificate_hash": "848febb4083daa15f81cc9c43efbfde075af9e51"
+          }
+        },
+        {
+>>>>>>> bccb52b (Modificacion)
           "client_id": "593561850320-sstmob062dk8b292i9b1qgqu2tcdbm7h.apps.googleusercontent.com",
           "client_type": 3
         }

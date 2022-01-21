@@ -1,5 +1,6 @@
 package com.example.senensig;
 
+<<<<<<< HEAD
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +23,31 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+=======
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.example.senensig.admin.AdminActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.HashMap;
+
+public class MainActivity extends AppCompatActivity {
+>>>>>>> bccb52b (Modificacion)
 
     Button btn_loginMenu, btn_signupMenu;
     private FirebaseAuth mAuth;
@@ -31,11 +57,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private static final String TAG = "SignInActivity";//
     private static final int RC_SIGN_IN = 9001;//
 
+<<<<<<< HEAD
+=======
+    private GoogleSignInClient mGoogleSignInClient;
+
+    private Toast toastErrorSignIn;
+>>>>>>> bccb52b (Modificacion)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -50,6 +83,25 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         btn_loginMenu = findViewById(R.id.btn_loginMenu);
         btn_signupMenu = findViewById(R.id.btn_signupMenu);
 
+=======
+        mAuth = FirebaseAuth.getInstance();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        Intent intent = getIntent();
+        String msg = intent.getStringExtra("msg");
+        if(msg != null){
+            if(msg.equals("cerrarSesion")){
+                cerrarSesion();
+            }
+        }
+        // seteando estado de internet
+        showInternetConnectionMessage();
+        btn_loginMenu = findViewById(R.id.btn_loginMenu);
+        //btn_signupMenu = findViewById(R.id.btn_signupMenu);
+>>>>>>> bccb52b (Modificacion)
         btn_loginMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
+<<<<<<< HEAD
         btn_signupMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,4 +195,41 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+=======
+        // btn_signupMenu.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, UserDistinctionActivitySgnp.class)));
+    }
+    private void showInternetConnectionMessage(){
+        ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo nInfo = cm.getActiveNetworkInfo();
+        boolean connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
+        if(!connected){
+            toastErrorSignIn=Toast.makeText(
+                    getApplicationContext(),"No hay conección a internet",Toast.LENGTH_SHORT);
+            toastErrorSignIn.setMargin(50,50);
+            toastErrorSignIn.show();
+        }
+    }
+
+    private void cerrarSesion() {
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                task -> updateUI(null));
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            HashMap<String, String> info_user = new HashMap<String, String>();
+            info_user.put("user_name", user.getDisplayName());
+            info_user.put("user_email", user.getEmail());
+            info_user.put("user_photo", String.valueOf(user.getPhotoUrl()));
+            info_user.put("user_id", user.getUid());
+            finish();
+            System.out.println("updateUI");
+            Intent intent = new Intent(this, AdminActivity.class);
+            intent.putExtra("info_user", info_user);
+            startActivity(intent);
+        } else {
+            System.out.println("===========================  sin registrarse");
+        }
+    }
+>>>>>>> bccb52b (Modificacion)
 }
