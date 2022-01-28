@@ -7,12 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-<<<<<<< HEAD
-=======
 import com.example.senensig.admin.LogingGoogleActivityAdmin;
 import com.example.senensig.visitante.LogingGoogleActivityVisitor;
 
->>>>>>> bccb52b (Modificacion)
 public class UserDistinctionActivityLgn extends AppCompatActivity {
 
     ImageButton imageButton_admin_lgn, imageButton_visitante_lgn;

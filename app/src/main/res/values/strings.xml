@@ -9,7 +9,7 @@
     <string name="mail">Correo</string>
     <string name="mail_hint">davidPrs@gmail.com</string>
     <string name="ID">ID</string>
-    <string name="ID_hint">0006591248</string>
+    <string name="ID_hint">0706344240</string>
     <string name="signUp">Registro</string>
 
     <string name="logIn">Inicio de sesión</string>
@@ -18,6 +18,7 @@
 
     <string name="signInAdminUsingGoogle">Admin, inicie sesión con tu cuenta de Google</string>
     <string name="signInVisitorUsingGoogle">Visitante, inicie sesión con tu cuenta de Google</string>
+    <string name="IDRequired">Debe ingresar con el numero de cédula registrado al ingreso del mall</string>
 
 
     <string name="adminWelcome">Bienvenido Administrador</string>
@@ -28,12 +29,6 @@
     <string name="lastVisit">Datos de mi última visita:</string>
     <string name="listMyVisits">Mi historial</string>
 
-<<<<<<< HEAD
-    <string name="temperature">Temperatura: </string>
-    <string name="temperature_hint">38 ºc</string>
-    <string name="hora">Hora: </string>
-    <string name="hora_hint">15:45:25</string>
-=======
     <!-- Fragment visitante -->
     <string name="temperature">Temperatura: </string>
     <string name="temperature_hint">38 ºc</string>
@@ -41,7 +36,6 @@
     <string name="fecha">Fecha: </string>
     <string name="hora_hint">15:45:25</string>
     <string name="fecha_hint">12 enero, 2021</string>
->>>>>>> bccb52b (Modificacion)
     <string name="lugar">Lugar: </string>
     <string name="lugar_hint">Mall del West</string>
     <string name="estado">Estado: </string>
@@ -50,8 +44,6 @@
 
     <string name="signOut">Cerrar sesión</string>
 
-<<<<<<< HEAD
-=======
     <string name="Identificacion">ID: </string>
 
 
@@ -75,6 +67,5 @@
     <string name="porcentajeNoFiebre">80</string>
     <string name="porcentajeFiebre">20</string>
     <!-- captioned image adapter admin -->
->>>>>>> bccb52b (Modificacion)
 
 </resources>

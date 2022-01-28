@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -15,11 +16,20 @@ import android.widget.TextView;
 
 import com.example.senensig.MainActivity;
 import com.example.senensig.R;
+import com.example.senensig.admin.AdminActivity;
 import com.example.senensig.admin.HistorialVisitantesActivity;
+import com.example.senensig.objects.MyDBHandler;
+import com.example.senensig.objects.User;
 import com.example.senensig.objects.Visita;
 import com.example.senensig.objects.Visitante;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,18 +61,42 @@ public class VisitanteActivity extends AppCompatActivity {
 
     private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
+    private GoogleSignInClient mGoogleSignInClient;
+
+    // local SQL database
+    private MyDBHandler dbHandler = new MyDBHandler(this, null,null, 2);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visitante);
 
+        // |------------- GOOGLE SIGN IN ------------| //
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        // |------------- GOOGLE SIGN IN ------------| //
+
+        visitor = new Visitante();
+        visitor.setIdVisitor("0706344240");
+        visitor.setName("Ricardo Tapia");
+
         Intent intent = getIntent();
         info_user = (HashMap<String, String>) intent.getSerializableExtra("info_user");
         // TODO: System.out.println("========= user: " + info_user.get("user_id") + "\n"+ "========== user id: " + info_user.get("user_name"));
-
-        visitor = new Visitante();
-        visitor.setIdVisitor(info_user.get("user_id"));
-        visitor.setName(info_user.get("user_name"));
+        if (info_user!= null ){
+            System.out.println("info_user: " + info_user + "info_user.toString(): " + info_user.toString());
+            visitor.setIdVisitor(info_user.get("user_id"));
+            visitor.setName(info_user.get("user_name"));
+        }
+        else {
+            retrievingGUserInformation ();
+        }
         updateName(visitor.getName());
 
         mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext()) //Use app context to prevent leaks using activity
@@ -82,15 +116,16 @@ public class VisitanteActivity extends AppCompatActivity {
         btnSignOutVisitor = findViewById(R.id.btnSignOutVisitor);
         buttonCreateFalseVisit = findViewById(R.id.buttonCreateFalseVisit);
 
-        String bienvenida = "Bienvenido "+info_user.get("user_name");
+        String bienvenida = "Bienvenido "+visitor.getName();
         textViewBienvenidaVisitor.setText( bienvenida );
 
         btnSignOutVisitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // logout
-                signOut();
-                startActivity(new Intent(VisitanteActivity.this, MainActivity.class));
+                //signOut();
+                //startActivity(new Intent(VisitanteActivity.this, MainActivity.class));
+                deleteTableEntry();
             }
         });
         btn_MiHistorial.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +140,14 @@ public class VisitanteActivity extends AppCompatActivity {
         });
         //initDB();
         getUserData();
+    }
+
+    public void retrievingGUserInformation (){
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            visitor.setIdVisitor(dbHandler.findHandler(20).getUserName());
+            visitor.setName(acct.getDisplayName());
+        }
     }
 
     private void getVisitorsFromFirebase(){
@@ -155,14 +198,14 @@ public class VisitanteActivity extends AppCompatActivity {
                     if ( visit.getTemperaturaC() < 38 ){
                         alertaVisitor.setTextColor(Color.parseColor("#67BA6B"));
                         imageViewPeligroFiebreVisitante.setImageResource(R.drawable.thumb_ups);
-                        textViewEstadoVisitante.setText("No presenta síntomas");
-                        alertaVisitor.setText("Puede ingresar");
+                        textViewEstadoVisitante.setText("Bien");
+                        alertaVisitor.setText("Esta bien");
 
                     }else{
                         alertaVisitor.setTextColor(Color.parseColor("#BE1E1E"));
                         imageViewPeligroFiebreVisitante.setImageResource(R.drawable.alert__copy_);
-                        textViewEstadoVisitante.setText("Presenta síntomas");
-                        alertaVisitor.setText("No puede ingresar");
+                        textViewEstadoVisitante.setText("enfermo");
+                        alertaVisitor.setText("Esta enfermo");
                     }
                 }
             }
@@ -187,7 +230,7 @@ public class VisitanteActivity extends AppCompatActivity {
         double randomTemp = Math.random()*(maxTemp-minTemp+1)+minTemp;
         String randomTempStr = decimalFormat.format(randomTemp);
 
-        Visita visitaFalsa = new Visita("2022:01:17:17:15:15", "133456", "Mall del Oreo", Double.valueOf(randomTempStr));
+        Visita visitaFalsa = new Visita("2021:01:17:17:15:15", "133456", "Mall del Oreo", Double.valueOf(randomTempStr));
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference listIdRef = rootRef.child("visitors").child(visitor.getIdVisitor()).child("visitas"); // VisitantesDatabase - visitanteID - visitas(array) - (obtener visitas)
@@ -250,14 +293,24 @@ public class VisitanteActivity extends AppCompatActivity {
     }
 
 
-    private void signOut() {
-        if (mGoogleApiClient.isConnected()) {
-            FirebaseAuth.getInstance().signOut();
-            finish();
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("msg", "cerrarSesion");
-            System.out.println("cerrar sesion");
-            startActivity(intent);
-        }
+    public void signOut(){
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                    }
+                });
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
+    private void deleteTableEntry(){
+        dbHandler.deleteHandler(20); // delete user ID
+        boolean result = dbHandler.deleteHandler(10); // delete user type identifier
+        if (result) {
+            System.out.println("table delete it");
+            signOut();
+        } else
+            System.out.println("table to be deleted not found");
     }
 }

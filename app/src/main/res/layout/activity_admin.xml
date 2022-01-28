@@ -1,80 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-=======
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
->>>>>>> bccb52b (Modificacion)
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#22FFFAF6"
-<<<<<<< HEAD
-    tools:context=".AdminActivity">
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="302dp"
-        android:layout_height="367dp"
-        android:layout_marginTop="220dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/statisticalchart2" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="347dp"
-        android:layout_height="119dp"
-        android:layout_marginTop="36dp"
-        android:text="@string/adminWelcome"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="48sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="172dp"
-        android:text="@string/chartVisitors"
-        android:textColor="#272F64"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.139"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_accederVHistorial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:backgroundTint="#63A0D0"
-        android:text="@string/listVisitors"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.074"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnSignOutAdmin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:backgroundTint="#63A0D0"
-        android:text="@string/signOut"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.937"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
-=======
     tools:context=".admin.AdminActivity">
 
     <LinearLayout
@@ -259,4 +189,3 @@
 
     </LinearLayout>
 </ScrollView>
->>>>>>> bccb52b (Modificacion)

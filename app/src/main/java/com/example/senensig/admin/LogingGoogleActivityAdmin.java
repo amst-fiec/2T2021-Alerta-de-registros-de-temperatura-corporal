@@ -1,5 +1,7 @@
 package com.example.senensig.admin;
 
+import static com.firebase.ui.auth.ui.email.TroubleSigningInFragment.TAG;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -7,13 +9,21 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.senensig.MainActivity;
 import com.example.senensig.R;
 import com.example.senensig.admin.AdminActivity;
+import com.example.senensig.objects.MyDBHandler;
+import com.example.senensig.objects.User;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -33,109 +43,144 @@ import java.util.HashMap;
 
 
 public class LogingGoogleActivityAdmin extends AppCompatActivity{
-    SignInButton signInButton;
-    private GoogleApiClient googleApiClient;
-    private static final int RC_SIGN_IN = 1;
-    private SignInClient oneTapClient;
-    private BeginSignInRequest signInRequest;
+    private SignInButton signInButton;
 
+    private Toast toastErrorSignIn;
+
+    //
     private GoogleSignInClient mGoogleSignInClient;
-    private FirebaseAuth mAuth;
+    private int RC_SIGN_IN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loging_google_admin);
 
-        mAuth = FirebaseAuth.getInstance();
+        // |------------- GOOGLE SIGN IN ------------| //
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+        // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        updateUI(account);
+        // |------------- GOOGLE SIGN IN ------------| //
 
+        /*
         Intent intent = getIntent();
         String msg = intent.getStringExtra("msg");
         if(msg != null){
             if(msg.equals("cerrarSesion")){
-                cerrarSesion();
+                //cerrarSesion();
             }
         }
+        */
 
         signInButton=(SignInButton)findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                iniciarSesion();
+            public void onClick(View v) {
+                // seteando estado de internet
+                if(!showInternetConnectionMessage()){
+                    toastErrorSignIn=Toast.makeText(
+                            getApplicationContext(),"No hay conección a internet", Toast.LENGTH_SHORT);
+                    toastErrorSignIn.setMargin(80,80);
+                    toastErrorSignIn.show();
+                }else{
+                    //iniciarSesion();
+                    signIn();
+                }
             }
         });
     }
 
-
-    private void cerrarSesion() {
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                task -> updateUI(null));
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    public void iniciarSesion() {
-        System.out.println("=========================== iniciarSesion");
-        resultLauncher.launch(new Intent(mGoogleSignInClient.getSignInIntent()));
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
     }
 
-    public ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        System.out.println("=========================== onActivityResult OK");
-                        Intent intent = result.getData();
-                        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(intent);
-                        try {
-                            GoogleSignInAccount account = task.getResult(ApiException.class);
-                            if (account != null) {
-                                System.out.println("===========================  onActivityResult");
-                                firebaseAuthWithGoogle(account);
-                            }
-                        } catch (ApiException e) {
-                            Log.w("TAG", "Fallo el inicio de sesión con google.", e);
-                        }
-                    }
-                    System.out.println("=========================== onActivityResult NOT OK");
-                }
-            });
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d("TAG", "firebaseAuthWithGoogle:" + acct.getId());
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(),
-                null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        System.out.println("===========================  firebaseAuthWithGoogle");
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        updateUI(user);
-                    } else {
-                        System.out.println("error");
-                        updateUI(null);
-                    }
-                });
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            System.out.println("Email: " + account.getEmail());
+            // Signed in successfully, show authenticated UI.
+            updateUI(account);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+            updateUI(null);
+        }
     }
 
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            HashMap<String, String> info_user = new HashMap<String, String>();
-            info_user.put("user_name", user.getDisplayName());
-            info_user.put("user_email", user.getEmail());
-            info_user.put("user_photo", String.valueOf(user.getPhotoUrl()));
-            info_user.put("user_id", user.getUid());
-            info_user.put("user_type", "admin");
-            finish();
-            System.out.println("updateUI");
+    public void retrievingGUserInformation (){
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personGivenName = acct.getGivenName();
+            String personFamilyName = acct.getFamilyName();
+            String personEmail = acct.getEmail();
+            String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+        }
+    }
+
+    // action to do if a user is already signed in
+    private void updateUI(GoogleSignInAccount account){
+        if (account == null){
+            System.out.println("Not signed in: ");
+        }
+        else{
+            System.out.println("Already signed in: "+account);
+            System.out.println("Email: " + account.getEmail());
+
+            setUserTypeOnDB();
+
             Intent intent = new Intent(this, AdminActivity.class);
-            intent.putExtra("info_user", info_user);
             startActivity(intent);
-        } else {
-            System.out.println("===========================  sin registrarse");
+        }
+    }
+
+    private boolean showInternetConnectionMessage(){
+        ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo nInfo = cm.getActiveNetworkInfo();
+        return nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
+    }
+
+    private void setUserTypeOnDB(){
+        String activityType = "AdminActivity";
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 2);
+        dbHandler.addHandler( new User(10, activityType));
+    }
+
+    private void setUserTypeOnDB2(){
+        String activityType = "AdminActivity";
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        if (dbHandler.findHandler(10) != null) { // si ya existe un tipo de paciente update the value
+            boolean result = dbHandler.updateHandler(10, activityType);
+            if (result) {
+                System.out.println("tipo de paciente actualizado a: "+activityType);
+            } else
+                System.out.println("No encontro tipo de paciente");
+        } else { // si no existe, crealo
+            dbHandler.addHandler( new User(10, activityType));
         }
     }
 }

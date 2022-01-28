@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.senensig.MainActivity;
 import com.example.senensig.R;
+import com.example.senensig.objects.MyDBHandler;
 import com.example.senensig.objects.Visita;
 import com.example.senensig.objects.Visitante;
 import com.example.senensig.visitante.MiHistorialActivity;
@@ -24,7 +25,12 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -51,16 +57,29 @@ public class AdminActivity extends AppCompatActivity {
             textViewPorcentajeSinFiebre, textViewPersonasSinFiebre;
     private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
+    private GoogleSignInClient mGoogleSignInClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+        // |------------- GOOGLE SIGN IN ------------| //
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        // |------------- GOOGLE SIGN IN ------------| //
+        /*
         mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext()) //Use app context to prevent leaks using activity
-                //.enableAutoManage(this /* FragmentActivity */, connectionFailedListener)
+                //.enableAutoManage(this // FragmentActivity // , connectionFailedListener)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
+         */
 
         btn_accederVHistorial = findViewById(R.id.btn_accederVHistorial);
         btnSignOutAdmin = findViewById(R.id.btnSignOutAdmin);
@@ -74,9 +93,8 @@ public class AdminActivity extends AppCompatActivity {
         btnSignOutAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // logout
-                signOut();
-                startActivity(new Intent(AdminActivity.this, MainActivity.class));
+                //signOut();
+                deleteTableEntry();
             }
         });
         btn_accederVHistorial.setOnClickListener(new View.OnClickListener() {
@@ -90,12 +108,27 @@ public class AdminActivity extends AppCompatActivity {
         getVisitorsFromFirebase();
     }
 
+    private void deleteTableEntry(){
+        MyDBHandler dbHandler = new MyDBHandler(this, null,
+                null, 2);
+        boolean result = dbHandler.deleteHandler(10);
+        if (result) {
+            System.out.println("table delete it");
+            signOut();
+        } else
+            System.out.println("table to be deleted not found");
+    }
+
     public void signOut(){
-        FirebaseAuth.getInstance().signOut();
-        finish();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("msg", "cerrarSesion");
-        startActivity(intent);
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                    }
+                });
+
+        startActivity(new Intent(AdminActivity.this, MainActivity.class));
     }
 
     private void updateUI(FirebaseUser user) {

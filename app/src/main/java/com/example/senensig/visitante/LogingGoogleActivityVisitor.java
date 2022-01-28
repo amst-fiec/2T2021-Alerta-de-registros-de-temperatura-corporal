@@ -8,7 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +21,8 @@ import android.widget.Toast;
 import com.example.senensig.R;
 import com.example.senensig.admin.AdminActivity;
 import com.example.senensig.admin.HistorialVisitantesActivity;
+import com.example.senensig.objects.MyDBHandler;
+import com.example.senensig.objects.User;
 import com.example.senensig.objects.Visita;
 import com.example.senensig.objects.Visitante;
 import com.example.senensig.visitante.VisitanteActivity;
@@ -84,12 +89,16 @@ public class LogingGoogleActivityVisitor extends AppCompatActivity{
             }
         }
 
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        signInButton.setOnClickListener(view -> {
+            // seteando estado de internet
+            if(!showInternetConnectionMessage()){
+                toastErrorSignIn=Toast.makeText(
+                        getApplicationContext(),"No hay conección a internet",Toast.LENGTH_SHORT);
+                toastErrorSignIn.setMargin(80,80);
+                toastErrorSignIn.show();
+            }else{
                 idUserStr = editTextTextPersonName.getText().toString();
                 if (!idUserStr.equals("")){
-                    System.out.println("hola desde btn");
                     //iniciarSesion(view);
                     getVisitorsFromFirebase(idUserStr, view);
                 }
@@ -98,6 +107,12 @@ public class LogingGoogleActivityVisitor extends AppCompatActivity{
                 }
             }
         });
+    }
+
+    private boolean showInternetConnectionMessage(){
+        ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo nInfo = cm.getActiveNetworkInfo();
+        return nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
     }
 
     private void cerrarSesion() {
@@ -125,7 +140,6 @@ public class LogingGoogleActivityVisitor extends AppCompatActivity{
                         firebaseAuthWithGoogle(account);
                     }
                     } catch (ApiException e) {
-
                     Log.w("TAG", "Fallo el inicio de sesión con google.", e);
                     String msn = "Fallo el inicio de sesión con google";
                     toastErrorSignIn=Toast.makeText(
@@ -134,7 +148,6 @@ public class LogingGoogleActivityVisitor extends AppCompatActivity{
                             Toast.LENGTH_SHORT);
                     toastErrorSignIn.setMargin(50,50);
                     toastErrorSignIn.show();
-
                 }
                 }
             System.out.println("=========================== onActivityResult NOT OK");
@@ -160,6 +173,8 @@ public class LogingGoogleActivityVisitor extends AppCompatActivity{
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
+            setVisitorOnLocalDB();
+
             HashMap<String, String> info_user = new HashMap<String, String>();
             info_user.put("user_name", user.getDisplayName());
             info_user.put("user_email", user.getEmail());
@@ -175,6 +190,13 @@ public class LogingGoogleActivityVisitor extends AppCompatActivity{
         } else {
             System.out.println("===========================  sin registrarse");
         }
+    }
+
+    private void setVisitorOnLocalDB(){
+        String activityType = "VisitanteActivity";
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 2);
+        dbHandler.addHandler( new User(10, activityType));
+        dbHandler.addHandler( new User(20, idUserStr));
     }
 
     private void getVisitorsFromFirebase(String idIngresado, View view){
@@ -193,7 +215,7 @@ public class LogingGoogleActivityVisitor extends AppCompatActivity{
                     }
                 }
                 if (!ingresar){
-                    Toast.makeText(getApplicationContext(),"Usuario sin datos",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"User sin datos",Toast.LENGTH_LONG).show();
                 }
             }
             @Override
